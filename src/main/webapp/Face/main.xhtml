@@ -1,0 +1,300 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+    <title>Лабораторная Бондаренко Р3210</title>
+    <script src="../js/script.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana;
+            font-weight: 400;
+        }
+
+        body {
+            overflow-y: scroll;
+        }
+
+        header {
+            background-color: rgb(248, 249, 250);
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            color: #212529;
+            border-color: #212529;
+            background-color: #fff;
+            border-width: 1px;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            line-height: 1.5;
+            padding: 6px 10px;
+            font-weight: 400;
+            margin: 5px;
+            border-style: solid;
+        }
+
+        button[selected] {
+            box-shadow: 0px 0px 5px #555;
+        }
+
+        button:hover,
+        .btn:hover {
+            color: #fff;
+            background-color: #212529;
+            cursor: pointer;
+        }
+
+        #x > button {
+            flex: 1 1 50px;
+            max-width: 70px;
+        }
+
+        h1, h2 {
+            color: #555;
+        }
+
+        h1 {
+            font-family: serif;
+        }
+
+        #x {
+            display: flex;
+            border: 1px solid black;
+            flex-direction: row;
+            justify-content: flex-start;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        #y {
+            margin-bottom: 30px;
+        }
+
+        #r {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        #errormessage {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 30px;
+            margin-top: -30px;
+        }
+
+
+        .index {
+            display: flex;
+            flex-direction: row;
+            margin: 0 auto;
+            max-width: 1500px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.135);
+        }
+
+        .contentblock {
+            padding: 10px;
+            min-width: 300px;
+            width: 50%;
+        }
+
+
+        .contentblock h2 {
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+        }
+
+
+        #y::placeholder {
+            color: #cdd;
+        }
+
+
+        .contentblock label,
+        .contentblock input,
+        .contentblock select {
+            width: 100%;
+            line-height: 1.5;
+            font-size: 1rem;
+            font-weight: 400;
+            border-width: 1px;
+            border-radius: 5px;
+            padding: 6px 10px;
+        }
+
+        .valN, .valN label, .valN input {
+            font-size: 1.3rem !important;
+            font-weight: 600;
+            border:0;
+            width: 50% !important;
+        }
+
+        .valN label, .valN input, .valN input:focus {
+            display: inline !important;
+            outline: none;
+        }
+
+        .sbutton {
+            color: #fff;
+            background-color: #198754;
+            border-color: #198754;
+            margin-left: 0;
+            transition: .15s ease-in-out;
+
+        }
+        .sbutton:hover {
+            background-color: #157347;
+            border-color: #146c43;
+
+            cursor:pointer;
+        }
+        .num::placeholder {
+            color: #cdd;
+        }
+        .num {
+            width: 100%;
+            line-height: 1.5;
+            font-size: 1rem;
+            font-weight: 400;
+            border-width: 1px;
+            border-radius: 5px;
+            padding:  6px 10px;
+        }
+        .bottomline {
+            margin-top:30px;
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            justify-content: flex-end;
+            padding-left:0;
+
+        }
+        .warning {
+            margin-top: 20px;
+            color: green;
+
+        }
+
+        .resulttable {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            color: #212529;
+            vertical-align: top;
+            border-color: #dee2e6;
+        }
+        tbody, td, th, thead, tr {
+            border-color: inherit;
+            border-style: solid;
+            border-width: 0;
+        }
+
+        tr, td, th {
+            text-align: center;
+            padding: 0.5rem 0.5rem;
+            border-bottom-width: 1px;
+            box-shadow: inset 0 0 0 9999px #fff;
+        }
+
+        .table th:first-child, .table td:first-child {
+            text-align: left;
+        }
+
+        @media (max-width: 1000px) {
+            .contentblock {
+                width: 100%;
+            }
+            .index {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body onload="init()">
+<header>
+    <h1>Лабораторная</h1>
+</header>
+
+
+<div class="index">
+    <div class="contentblock">
+        <div id="XY" class="valN"></div>
+        <div class="valN"><label for="valX">X =</label><input id="valX" name="valX" readonly></div>
+        <div class="valN"><label for="valY">Y =</label><input id="valY" name="valY" readonly></div>
+        <div class="valN"><label for="valR">R =</label><input id="valR" name="valR" readonly></div>
+    </div>
+    <div class="contentblock">
+        <div>
+            <h2>Переменные</h2>
+        </div>
+        <fieldset id="x">
+            <legend>Выбор X</legend>
+            <button id="varX1" type="button" name="varX" value="-5" onclick="setX(this)">-5</button>
+            <button id="varX2" type="button" name="varX" value="-4" onclick="setX(this)">-4</button>
+            <button id="varX3" type="button" name="varX" value="-3" onclick="setX(this)">-3</button>
+            <button id="varX4" type="button" name="varX" value="-2" onclick="setX(this)">-2</button>
+            <button id="varX5" type="button" name="varX" value="-1" onclick="setX(this)">-1</button>
+            <button id="varX6" type="button" name="varX" value="0" onclick="setX(this)">0</button>
+            <button id="varX7" type="button" name="varX" value="1" onclick="setX(this)">1</button>
+            <button id="varX8" type="button" name="varX" value="2" onclick="setX(this)">2</button>
+            <button id="varX9" type="button" name="varX" value="3" onclick="setX(this)">3</button>
+        </fieldset>
+        <div>
+            <label for="y">Выбор Y</label>
+            <input id="y" name ="y" type="text" placeholder="-3...3" onchange="setY(this)" >
+            <div id="errormessage">-</div>
+        </div>
+        <div>
+            <label for="r">Выбор R</label>
+            <select name="varR" id="r" onchange="setR(this)">
+                <option value="3">3</option>
+                <option value="2.5">2.5</option>
+                <option value="2">2</option>
+                <option value="1.5">1.5</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select>
+        </div>
+        <div class="warning">
+            <p>При нажатии кнопки "рассчитать" берутся текущие значения (слева внизу).</p>
+        </div>
+        <div class="bottomline">
+
+            <button type="button" id="b" class="num sbutton" onclick="return checkR0();">Рассчитать</button>
+        </div>
+        <div class ="resulttable">
+            <table class="table" id="tablichka">
+                <thead>
+                <tr>
+                    <th scope="col">Результат</th>
+                    <th scope="col">X</th>
+                    <th scope="col">Y</th>
+                    <th scope="col">R</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
