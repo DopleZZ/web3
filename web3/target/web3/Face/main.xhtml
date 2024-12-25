@@ -1,0 +1,238 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Лабораторная Бондаренко Р3210</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana;
+            font-weight: 400;
+        }
+
+        body {
+            overflow-y: scroll;
+        }
+
+        header {
+            background-color: rgb(248, 249, 250);
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .button {
+            color: #212529;
+            border-color: #212529;
+            background-color: #fff;
+            border-width: 1px;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            line-height: 1.5;
+            padding: 6px 10px;
+            font-weight: 400;
+            margin: 5px;
+            border-style: solid;
+        }
+
+        button:hover {
+            color: #fff;
+            background-color: #212529;
+            cursor: pointer;
+        }
+
+        h1, h2 {
+            color: #555;
+        }
+
+        h1 {
+            font-family: serif;
+        }
+
+        #x > button {
+            flex: 1 1 50px;
+            max-width: 70px;
+        }
+
+        #x {
+            display: flex;
+            border: 1px solid black;
+            flex-direction: row;
+            justify-content: flex-start;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        #y {
+            margin-bottom: 30px;
+        }
+
+        #r {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #errormessage {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 30px;
+            margin-top: -30px;
+        }
+
+        .index {
+            display: flex;
+            flex-direction: row;
+            margin: 0 auto;
+            max-width: 1500px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.135);
+        }
+
+        .contentblock {
+            padding: 10px;
+            min-width: 300px;
+            width: 50%;
+        }
+
+        .contentblock h2 {
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 1.3rem !important;
+            font-weight: 600;
+            border: 0;
+            width: 50% !important;
+            margin-bottom: 30px;
+        }
+
+        .valN label, .valN input, .valN input:focus {
+            display: inline !important;
+            outline: none;
+        }
+
+        .sbutton {
+            color: #fff;
+            background-color: #198754;
+            border-color: #198754;
+            margin-left: 0;
+            transition: .15s ease-in-out;
+        }
+
+        .sbutton:hover {
+            background-color: #157347;
+            border-color: #146c43;
+            cursor: pointer;
+        }
+
+        .resulttable {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            color: #212529;
+            vertical-align: top;
+            border-color: #dee2e6;
+        }
+
+        .table th:first-child, .table td:first-child {
+            text-align: left;
+        }
+
+        @media (max-width: 1000px) {
+            .contentblock {
+                width: 100%;
+            }
+
+            .index {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Лабораторная</h1>
+    </header>
+
+    <div class = "greatCanvas">
+        <div class="canvasContainer">
+            <p>Graphic</p>
+            <canvas width="400" height="400" id="canvas">gra</canvas>
+            <canvas width="400" height="400" id="pointsCanvas">gra</canvas>
+        </div>
+    </div>
+
+
+
+
+    <div class="index">
+        <div class="contentblock">
+            <div>
+                <h2>Переменные</h2>
+            </div>
+            <fieldset id="x">
+                <legend>Выбор X</legend>
+                <h:commandButton value="-2"  action="#{mainBean.setX(-2)}"></h:commandButton>
+                <h:commandButton value="-1"  action="#{mainBean.setX(-1)}"></h:commandButton>
+                <h:commandButton value="0"  action="#{mainBean.setX(0)}"></h:commandButton>
+                <h:commandButton value="1"  action="#{mainBean.setX(1)}"></h:commandButton>
+                <h:commandButton value="2"  action="#{mainBean.setX(2)}"></h:commandButton>
+                <h:commandButton value="3"  action="#{mainBean.setX(3)}"></h:commandButton>
+            </fieldset>
+
+            <div>
+                <label for="y">Выбор Y</label>
+                <h:inputText styleClass="label" id="y" value="#{mainBean.y}" validatorMessage="Введите Y от -5 до 3">
+                    <f:validateDoubleRange minimum="-5" maximum="3"/>
+                </h:inputText>
+            </div>
+
+            <fieldset id="r">
+                <legend>Выбор R</legend>
+                <h:commandButton value="1"  action="#{mainBean.setR(1)}"></h:commandButton>
+                <h:commandButton value="1.5"  action="#{mainBean.setR(1.5)}"></h:commandButton>
+                <h:commandButton value="2"  action="#{mainBean.setR(2)}"></h:commandButton>
+                <h:commandButton value="2.5"  action="#{mainBean.setR(2.5)}"></h:commandButton>
+                <h:commandButton value="3"  action="#{mainBean.setR(3)}"></h:commandButton>
+            </fieldset>
+
+            <div class="bottomline">
+                <h:commandButton value="Рассчитать" action="#{mainBean.submit()}"  styleClass="sbutton">
+                    <f:ajax render="table"/>
+                </h:commandButton>
+            </div>
+
+
+            <div class="tableContainer">
+                <p:dataTable value="#{dots.dots}" emptyMessage=""  var="point" id="table" update="@form">
+                    <p:column headerText="X" >
+                        <h:outputText value="#{point.x}" />
+                    </p:column>
+                    <p:column headerText="Y">
+                        <h:outputText value="#{point.y}" />
+                    </p:column>
+                    <p:column headerText="R" >
+                        <h:outputText value="#{point.r}" />
+                    </p:column>
+                    <p:column headerText="Попал?" >
+                        <h:outputText value="#{point.status ? 'Попадание' :  'Промах'}"/>
+                    </p:column>
+                </p:dataTable>
+            </div>
+        </div>
+    </div>
+    <script src="../js/canvas.js"></script>
+
+</body>
+</html>
