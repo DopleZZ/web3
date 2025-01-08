@@ -5,7 +5,6 @@ import ManageBeans.AreaChecker;
 import ManageBeans.CordsValidator;
 import ManageBeans.DataBaseManager;
 import Model.Dot;
-import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -60,6 +59,7 @@ public class MainBean implements Serializable {
             Dot dot = new Dot(x,y,r, areaChecker.isInTheSpot(x,y,r));
             dataBaseManager.addPoint(dot);
             dotsContainer.getDots().add(dot);
+            return null;
         }
         System.out.println("Error while submit");
         return null;
