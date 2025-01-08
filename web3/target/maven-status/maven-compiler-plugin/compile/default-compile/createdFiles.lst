@@ -1,6 +1,6 @@
-ManageBeans/CordsValidator.class
-Beans/DotsContainer.class
-Model/Dot.class
-ManageBeans/DataBaseManager.class
-ManageBeans/AreaChecker.class
-Beans/MainBean.class
+ManageBeans\DataBaseManager.class
+Model\Dot.class
+Beans\MainBean.class
+ManageBeans\CordsValidator.class
+Beans\DotsContainer.class
+ManageBeans\AreaChecker.class

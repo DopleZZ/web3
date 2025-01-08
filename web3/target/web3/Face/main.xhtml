@@ -2,7 +2,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<head>
+<h:head>
     <title>Лабораторная Бондаренко Р3210</title>
     <style>
         * {
@@ -39,7 +39,7 @@
             border-style: solid;
         }
 
-        button:hover {
+        .button:hover {
             color: #fff;
             background-color: #212529;
             cursor: pointer;
@@ -158,64 +158,65 @@
             }
         }
     </style>
-</head>
-<body>
+</h:head>
+<h:body onload="init()">
 
     <header>
         <h1>Лабораторная</h1>
     </header>
 
-    <div class = "greatCanvas">
-        <div class="canvasContainer">
-            <p>Graphic</p>
-            <canvas width="400" height="400" id="canvas">gra</canvas>
-            <canvas width="400" height="400" id="pointsCanvas">gra</canvas>
-        </div>
-    </div>
+
+
 
 
 
 
     <div class="index">
-        <div class="contentblock">
-            <div>
-                <h2>Переменные</h2>
-            </div>
-            <fieldset id="x">
-                <legend>Выбор X</legend>
-                <h:commandButton value="-2"  action="#{mainBean.setX(-2)}"></h:commandButton>
-                <h:commandButton value="-1"  action="#{mainBean.setX(-1)}"></h:commandButton>
-                <h:commandButton value="0"  action="#{mainBean.setX(0)}"></h:commandButton>
-                <h:commandButton value="1"  action="#{mainBean.setX(1)}"></h:commandButton>
-                <h:commandButton value="2"  action="#{mainBean.setX(2)}"></h:commandButton>
-                <h:commandButton value="3"  action="#{mainBean.setX(3)}"></h:commandButton>
-            </fieldset>
 
-            <div>
-                <label for="y">Выбор Y</label>
+        <div class="contentblock">
+            <h:panelGroup>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="620" height="620" id="svg"></svg>
+            </h:panelGroup>
+        </div>
+
+        <div class="contentblock">
+
+            <h:form class="form" id="fm">
+                <h:panelGrid columns="4">
+
+                    <h:panelGrid columns="4">
+                    <h:outputLabel value="#{mainBean.x}"/>
+                <h:commandButton  value="-2" styleClass="button" action="#{mainBean.setX(-2)}"/>
+                <h:commandButton value="-1" styleClass="button"/>
+                <h:commandButton value="0" styleClass="button"/>
+                <h:commandButton value="1" styleClass="button"/>
+                <h:commandButton value="2" styleClass="button"/>
+                <h:commandButton value="3" styleClass="button"/>
+
+                    </h:panelGrid>
+<h:panelGrid columns="1">
+                    <h:outputLabel value="#{mainBean.y}"/>
                 <h:inputText styleClass="label" id="y" value="#{mainBean.y}" validatorMessage="Введите Y от -5 до 3">
                     <f:validateDoubleRange minimum="-5" maximum="3"/>
                 </h:inputText>
-            </div>
+</h:panelGrid>
 
-            <fieldset id="r">
-                <legend>Выбор R</legend>
-                <h:commandButton value="1"  action="#{mainBean.setR(1)}"></h:commandButton>
-                <h:commandButton value="1.5"  action="#{mainBean.setR(1.5)}"></h:commandButton>
-                <h:commandButton value="2"  action="#{mainBean.setR(2)}"></h:commandButton>
-                <h:commandButton value="2.5"  action="#{mainBean.setR(2.5)}"></h:commandButton>
-                <h:commandButton value="3"  action="#{mainBean.setR(3)}"></h:commandButton>
-            </fieldset>
+<h:panelGrid columns="3">
+                <h:commandButton value="1" styleClass="button" action="#{mainBean.setR(1)}"></h:commandButton>
+                <h:commandButton value="1.5" styleClass="button" action="#{mainBean.setR(1.5)}"></h:commandButton>
+                <h:commandButton value="2" styleClass="button"  action="#{mainBean.setR(2)}"></h:commandButton>
+                <h:commandButton value="2.5" styleClass="button" action="#{mainBean.setR(2.5)}"></h:commandButton>
+                <h:commandButton value="3" styleClass="button" action="#{mainBean.setR(3)}"></h:commandButton>
 
-            <div class="bottomline">
-                <h:commandButton value="Рассчитать" action="#{mainBean.submit()}"  styleClass="sbutton">
-                    <f:ajax render="table"/>
+</h:panelGrid>
+
+                <h:commandButton value="Рассчитать" action="#{mainBean.submit()}"  styleClass="num sbutton">
+                    <f:ajax execute="@form"/>
                 </h:commandButton>
-            </div>
+                </h:panelGrid>
 
-
-            <div class="tableContainer">
-                <p:dataTable value="#{dots.dots}" emptyMessage=""  var="point" id="table" update="@form">
+            <div class="resulttable">
+                <p:dataTable value="#{dots.dots}" emptyMessage=""  var="point" id="table" update="@form" styleClass="table">
                     <p:column headerText="X" >
                         <h:outputText value="#{point.x}" />
                     </p:column>
@@ -230,9 +231,10 @@
                     </p:column>
                 </p:dataTable>
             </div>
+            </h:form>
         </div>
     </div>
-    <script src="../js/canvas.js"></script>
+    <script src="../js/svg.js"></script>
 
-</body>
+</h:body>
 </html>

@@ -21,9 +21,11 @@ public class CordsValidator implements Serializable {
         double[] validR = {1, 1.5, 2, 2.5, 3};
         for (double val : validR) {
             if (r == val) {
+                System.out.println("Validation true");
                 return true;
             }
         }
+        System.out.println("Validation false");
         return false;
     }
 

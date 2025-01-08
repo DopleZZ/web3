@@ -28,6 +28,7 @@ public class Dot {
         this.y = y;
         this.r = r;
         this.status = status;
+        System.out.println("New dot created");
     }
 
     public Dot() {
