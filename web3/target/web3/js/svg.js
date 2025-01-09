@@ -145,6 +145,20 @@ function DrawCanvas(intSize, R) {
     drawCircle(ctx,R);
     drawRectangle(ctx, R);
     drawTriangle(ctx, R);
+    try {
+    const table = document.getElementById("fm:table");
+    const rows = table.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        const x = parseFloat(cells[0].textContent.trim());
+        const y = parseFloat(cells[1].textContent.trim());
+        const r = parseFloat(cells[2].textContent.trim());
+        const hit = cells[3].textContent.trim().toLowerCase() === 'true';
+
+        drawDot(axisXY+ x*gap,axisXY-y*gap);
+    });} catch {
+        console.log("тут пусто");
+    }
 
 }
 
@@ -199,8 +213,6 @@ function init(){
     DrawCanvas(intSize, R)
     var ctx = document.getElementById("svg");
     ctx.addEventListener('mousedown', function(e) {getCursorPosition(ctx, e)});
-
-
 }
 
 function drawLast(){
@@ -220,5 +232,6 @@ function drawLast(){
         document.getElementById("fm:xhidden").value = -1000;
         document.getElementById("fm:yhidden").value = -1000;
 
-    }, 500);
+    }, 300);
 }
+

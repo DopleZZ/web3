@@ -30,7 +30,7 @@ public class MainBean implements Serializable {
 
     private double x;
     private double y;
-    private double r;
+    private double r = 1;
 
     private double xhidden = -1000;
     private double yhidden = -1000;
