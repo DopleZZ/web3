@@ -74,9 +74,14 @@
         }
 
         #r {
+            display: flex;
             border: 1px solid black;
+            flex-direction: row;
+            justify-content: flex-start;
             border-radius: 5px;
             padding: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         #errormessage {
@@ -182,38 +187,40 @@
         <div class="contentblock">
 
             <h:form class="form" id="fm">
-                <h:panelGrid columns="4">
+                <div class="contentblock">
+                    <fieldset id="x">
+                        <legend><h:outputLabel value="#{mainBean.x}"/></legend>
+                        <h:commandButton  value="-2" styleClass="button" action="#{mainBean.setX(-2)}"/>
+                        <h:commandButton value="-1" styleClass="button" action="#{mainBean.setX(-1)}"/>
+                        <h:commandButton value="0" styleClass="button" action="#{mainBean.setX(0)}"/>
+                        <h:commandButton value="1" styleClass="button" action="#{mainBean.setX(1)}"/>
+                        <h:commandButton value="2" styleClass="button" action="#{mainBean.setX(2)}"/>
+                        <h:commandButton value="3" styleClass="button" action="#{mainBean.setX(3)}"/>
+                    </fieldset>
 
-                    <h:panelGrid columns="4">
-                    <h:outputLabel value="#{mainBean.x}"/>
-                <h:commandButton  value="-2" styleClass="button" action="#{mainBean.setX(-2)}"/>
-                <h:commandButton value="-1" styleClass="button"/>
-                <h:commandButton value="0" styleClass="button"/>
-                <h:commandButton value="1" styleClass="button"/>
-                <h:commandButton value="2" styleClass="button"/>
-                <h:commandButton value="3" styleClass="button"/>
+                    <div>
+                        <h:inputText styleClass="label" id="y" value="#{mainBean.y}" validatorMessage="Введите Y от -5 до 3">
+                            <f:validateDoubleRange minimum="-5" maximum="3"/>
+                        </h:inputText>
+                    </div>
 
-                    </h:panelGrid>
-<h:panelGrid columns="1">
-                    <h:outputLabel value="#{mainBean.y}"/>
-                <h:inputText styleClass="label" id="y" value="#{mainBean.y}" validatorMessage="Введите Y от -5 до 3">
-                    <f:validateDoubleRange minimum="-5" maximum="3"/>
-                </h:inputText>
-</h:panelGrid>
+                    <fieldset id="r">
+                        <legend><h:outputLabel value="#{mainBean.r}"/></legend>
+                        <h:commandButton value="1" styleClass="button" action="#{mainBean.setR(1)}">
+                            <f:ajax execute="@form" render="fm:table"/>
+                        </h:commandButton>
+                        <h:commandButton value="1.5" styleClass="button" action="#{mainBean.setR(1.5)}"></h:commandButton>
+                        <h:commandButton value="2" styleClass="button"  action="#{mainBean.setR(2)}"></h:commandButton>
+                        <h:commandButton value="2.5" styleClass="button" action="#{mainBean.setR(2.5)}"></h:commandButton>
+                        <h:commandButton value="3" styleClass="button" action="#{mainBean.setR(3)}"></h:commandButton>
+                    </fieldset>
 
-<h:panelGrid columns="3">
-                <h:commandButton value="1" styleClass="button" action="#{mainBean.setR(1)}"></h:commandButton>
-                <h:commandButton value="1.5" styleClass="button" action="#{mainBean.setR(1.5)}"></h:commandButton>
-                <h:commandButton value="2" styleClass="button"  action="#{mainBean.setR(2)}"></h:commandButton>
-                <h:commandButton value="2.5" styleClass="button" action="#{mainBean.setR(2.5)}"></h:commandButton>
-                <h:commandButton value="3" styleClass="button" action="#{mainBean.setR(3)}"></h:commandButton>
-
-</h:panelGrid>
-
-                <h:commandButton value="Рассчитать" action="#{mainBean.submit()}"  styleClass="num sbutton">
-                    <f:ajax execute="@form"/>
-                </h:commandButton>
-                </h:panelGrid>
+                    <div class="bottomline">
+                    <h:commandButton value="Рассчитать" action="#{mainBean.submit()}" id="b" styleClass="num sbutton">
+                        <f:ajax execute="@form" render="fm:table"/>
+                    </h:commandButton>
+                    </div>
+        </div>
 
             <div class="resulttable">
                 <p:dataTable value="#{dots.dots}" emptyMessage=""  var="point" id="table" update="@form" styleClass="table">
