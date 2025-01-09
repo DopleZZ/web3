@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name="dots")
 public class Dot {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(nullable = false)

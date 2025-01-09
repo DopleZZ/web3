@@ -3,7 +3,6 @@ package Beans;
 import Model.Dot;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-import jdk.jfr.Name;
 
 import java.io.Serializable;
 import java.util.ArrayList;
