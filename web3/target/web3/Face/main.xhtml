@@ -39,10 +39,14 @@
             border-style: solid;
         }
 
-        .button:hover {
+        .button:hover:enabled {
             color: #fff;
             background-color: #212529;
             cursor: pointer;
+        }
+
+        .button[selected] {
+            box-shadow: 0px 0px 5px #555;
         }
 
         h1, h2 {
@@ -58,7 +62,7 @@
             max-width: 70px;
         }
 
-        #x {
+        .buttonWindow {
             display: flex;
             border: 1px solid black;
             flex-direction: row;
@@ -67,28 +71,6 @@
             padding: 10px;
             margin-bottom: 30px;
             flex-wrap: wrap;
-        }
-
-        #y {
-            margin-bottom: 30px;
-        }
-
-        #r {
-            display: flex;
-            border: 1px solid black;
-            flex-direction: row;
-            justify-content: flex-start;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        #errormessage {
-            color: red;
-            font-size: 12px;
-            margin-bottom: 30px;
-            margin-top: -30px;
         }
 
         .index {
@@ -188,38 +170,63 @@
 
             <h:form class="form" id="fm">
                 <div class="contentblock">
-                    <fieldset id="x">
-                        <legend><h:outputLabel value="#{mainBean.x}"/></legend>
-                        <h:commandButton  value="-2" styleClass="button" action="#{mainBean.setX(-2)}"/>
-                        <h:commandButton value="-1" styleClass="button" action="#{mainBean.setX(-1)}"/>
-                        <h:commandButton value="0" styleClass="button" action="#{mainBean.setX(0)}"/>
-                        <h:commandButton value="1" styleClass="button" action="#{mainBean.setX(1)}"/>
-                        <h:commandButton value="2" styleClass="button" action="#{mainBean.setX(2)}"/>
-                        <h:commandButton value="3" styleClass="button" action="#{mainBean.setX(3)}"/>
+                    <fieldset class="buttonWindow" id="x">
+                        <legend><h:outputLabel id="xValue" value="#{mainBean.x}"/></legend>
+                        <h:commandButton  value="-2" styleClass="button" action="#{mainBean.setX(-2)}">
+                            <f:ajax execute="@form" render="fm:table fm:xValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="-1" styleClass="button" action="#{mainBean.setX(-1)}">
+                            <f:ajax execute="@form" render="fm:table fm:xValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="0" styleClass="button" action="#{mainBean.setX(0)}">
+                            <f:ajax execute="@form" render="fm:table fm:xValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="1" styleClass="button" action="#{mainBean.setX(1)}">
+                            <f:ajax execute="@form" render="fm:table fm:xValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="2" styleClass="button" action="#{mainBean.setX(2)}">
+                            <f:ajax execute="@form" render="fm:table fm:xValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="3" styleClass="button" action="#{mainBean.setX(3)}">
+                            <f:ajax execute="@form" render="fm:table fm:xValue"/>
+                        </h:commandButton>
                     </fieldset>
 
                     <div>
-                        <h:inputText styleClass="label" id="y" value="#{mainBean.y}" validatorMessage="Введите Y от -5 до 3">
+
+                        <h:inputText styleClass="label" id="yValue" value="#{mainBean.y}" validatorMessage="Введите Y от -5 до 3">
                             <f:validateDoubleRange minimum="-5" maximum="3"/>
                         </h:inputText>
                     </div>
 
-                    <fieldset id="r">
-                        <legend><h:outputLabel value="#{mainBean.r}"/></legend>
+                    <fieldset class="buttonWindow">
+                        <legend><h:outputLabel id="rValue" value="#{mainBean.r}"/></legend>
                         <h:commandButton value="1" styleClass="button" action="#{mainBean.setR(1)}">
-                            <f:ajax execute="@form" render="fm:table"/>
+                            <f:ajax execute="@form" render="fm:table fm:rValue"/>
                         </h:commandButton>
-                        <h:commandButton value="1.5" styleClass="button" action="#{mainBean.setR(1.5)}"></h:commandButton>
-                        <h:commandButton value="2" styleClass="button"  action="#{mainBean.setR(2)}"></h:commandButton>
-                        <h:commandButton value="2.5" styleClass="button" action="#{mainBean.setR(2.5)}"></h:commandButton>
-                        <h:commandButton value="3" styleClass="button" action="#{mainBean.setR(3)}"></h:commandButton>
+                        <h:commandButton value="1.5" styleClass="button" action="#{mainBean.setR(1.5)}">
+                            <f:ajax execute="@form" render="fm:table fm:rValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="2" styleClass="button"  action="#{mainBean.setR(2)}">
+                            <f:ajax execute="@form" render="fm:table fm:rValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="2.5" styleClass="button" action="#{mainBean.setR(2.5)}">
+                            <f:ajax execute="@form" render="fm:table fm:rValue"/>
+                        </h:commandButton>
+                        <h:commandButton value="3" styleClass="button" action="#{mainBean.setR(3)}">
+                            <f:ajax execute="@form" render="fm:table fm:rValue"/>
+                        </h:commandButton>
                     </fieldset>
 
                     <div class="bottomline">
-                    <h:commandButton value="Рассчитать" action="#{mainBean.submit()}" id="b" styleClass="num sbutton">
-                        <f:ajax execute="@form" render="fm:table"/>
+                    <h:commandButton value="Рассчитать" action="#{mainBean.submit()}" id="b" styleClass="num sbutton" onclick="handleSubmit()">
+                        <f:ajax execute="@form" render="fm:table svg"/>
                     </h:commandButton>
                     </div>
+
+                    <h:inputHidden id="xhidden" value="#{mainBean.xhidden}"/>
+                    <h:inputHidden id="yhidden" value="#{mainBean.yhidden}"/>
+
         </div>
 
             <div class="resulttable">

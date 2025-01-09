@@ -32,6 +32,29 @@ public class MainBean implements Serializable {
     private double y;
     private double r;
 
+    private double xhidden = -1000;
+    private double yhidden = -1000;
+
+    private double xSelected;
+    private double ySelected;
+
+
+    public double getYhidden() {
+        return yhidden;
+    }
+
+    public void setYhidden(double yhidden) {
+        this.yhidden = yhidden;
+    }
+
+    public double getXhidden() {
+        return xhidden;
+    }
+
+    public void setXhidden(double xhidden) {
+        this.xhidden = xhidden;
+    }
+
     public void setX(double x) {
         System.out.println("X set to " + x);
         this.x = x;
@@ -55,13 +78,23 @@ public class MainBean implements Serializable {
         System.out.println(this.x);
         System.out.println(this.y);
         System.out.println(this.r);
-        if (cordsValidator.validate(x,y,r)){
-            Dot dot = new Dot(x,y,r, areaChecker.isInTheSpot(x,y,r));
+        System.out.println(this.xhidden);
+        System.out.println(this.yhidden);
+
+        if (xhidden != -1000 & yhidden != -1000){
+            xSelected = xhidden;
+            ySelected = yhidden;
+        } else {
+            xSelected = x;
+            ySelected  =y;
+        }
+        if (cordsValidator.validate(xSelected,ySelected,r)){
+            Dot dot = new Dot(xSelected,ySelected,r, areaChecker.isInTheSpot(xSelected,ySelected,r));
             dataBaseManager.addPoint(dot);
             dotsContainer.getDots().add(dot);
-            return null;
+
+
         }
-        System.out.println("Error while submit");
         return null;
     }
 }

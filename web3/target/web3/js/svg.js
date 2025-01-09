@@ -148,6 +148,77 @@ function DrawCanvas(intSize, R) {
 
 }
 
+function drawDot(x, y) {
+    var svg  = document.getElementsByTagName('svg')[0];
+    let fillStyle = "red";
+    var circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
+    circle.setAttribute('r', 5);
+    circle.style.fill = fillStyle;
+    circle.strokeStyle = fillStyle;
+    circle.style.strokeWidth = "1px";
+    svg.appendChild(circle);
+    console.log("new dot at", x,y);
+}
+
+function handleSubmit(){
+    setTimeout(() => {
+        let xValue = parseFloat(document.getElementById("fm:xValue").textContent);
+        let yValue = parseFloat(document.getElementById("fm:yValue").value);
+        console.log(xValue, yValue);
+        let px = axisXY + xValue * gap;
+        let py = axisXY - yValue * gap;
+        drawDot(px,py);
+    }, 320);
+}
+
+function getCursorPosition(ctx, event) {
+    let pos = {};
+    const rect = ctx.getBoundingClientRect()
+
+    const x = (event.clientX - rect.left);
+    const y = (event.clientY - rect.top);
+
+    const roundedX = parseFloat(((x - axisXY)/gap).toFixed(4));
+    const roundedY = parseFloat(((y - axisXY)/gap * -1).toFixed(4));
+
+
+    document.getElementById("fm:xhidden").value = roundedX;
+    document.getElementById("fm:yhidden").value = roundedY;
+    console.log(document.getElementById("fm:xhidden").value, document.getElementById("fm:yhidden").value);
+
+    document.getElementById("fm:b").click();
+    drawLast();
+
+}
+
+
+
 function init(){
     DrawCanvas(intSize, R)
+    var ctx = document.getElementById("svg");
+    ctx.addEventListener('mousedown', function(e) {getCursorPosition(ctx, e)});
+
+
+}
+
+function drawLast(){
+    setTimeout(() => {
+        const table = document.getElementById("fm:table");
+        const rows = table.querySelectorAll("tbody tr");
+        let points = [];
+        rows.forEach(row => {
+            const cells = row.querySelectorAll("td");
+            const x = parseFloat(cells[0].textContent.trim());
+            const y = parseFloat(cells[1].textContent.trim());
+            const r = parseFloat(cells[2].textContent.trim());
+            const hit = cells[3].textContent.trim().toLowerCase() === 'true';
+            points = { x, y, r, hit };
+        });
+        drawDot(axisXY+ points.x*gap,axisXY-points.y*gap);
+        document.getElementById("fm:xhidden").value = -1000;
+        document.getElementById("fm:yhidden").value = -1000;
+
+    }, 500);
 }
